@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col h1 text-center">Список пользователей</div>
+    </div>
+    <div class="row">
+        <div class="col-2 text-center">ID</div>
+        <div class="col-3 text-center">Имя</div>
+        <div class="col-3 text-center">Фамилия</div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <hr>
+        <br>
+    </div>
+    <div th:if="${!users.isEmpty()}">
+        <div th:each="user : ${users}">
+            <div style="..." class="row">
+                <div class="col-2" th:text="${user.getId()}">VALUE</div>
+                <div class="col-3" th:text="${user.getFirstName()}">VALUE</div>
+                <div class="col-3" th:text="${user.getLastName()}">VALUE</div>
+                <div class="col-2">
+                    <form th:action="@{user-update/{id}(id=${user.id})}" th:method="GET">
+                        <button type="submit" class="btn btn-primary">Редактировать</button>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <form th:action="@{user-delete/{id}(id=${user.id})}" th:method="GET">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${users.isEmpty()}">
+        <div class="row text-center">
+            <h4>Пользователи не найдены</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div>
+                <br>
+                <form th:action="@{/user-create}">
+                    <button type="submit" class="btn btn-primary">Создать нового пользователя</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
