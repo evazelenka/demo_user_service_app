@@ -5,17 +5,12 @@
     <title>Create user</title>
 </head>
 <body>
-<!--<form action="#" th:action="@{user-update/{id}(id=${user.id})}" th:object="${user}" method="post">-->
-<!--    <label for="firstName">First name</label>-->
-<!--    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">-->
-<!--    <label for="lastName">Last name</label>-->
-<!--    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">-->
-<!--    <input type="submit" value="Create User">-->
-<!--</form>-->
 <p>ID: <span th:text="${user.id}"></span></p>
+<p>First Name: <span th:text="${user.firstName}"></span></p>
+<p>Last Name: <span th:text="${user.lastName}"></span></p>
 <form th:action="@{/user-update/{id}(id=${user.id})}" th:method="post">
-    FirstName: <input type="text" name="firstName"><br />
-    LastName: <input type="text" name="lastName"><br />
+    Update FirstName: <input type="text" name="firstName" placeholder="First Name"><br />
+    Update LastName: <input type="text" name="lastName" placeholder="Last Name"><br />
     <button type="submit">Update user</button>
 </form>
 </body>

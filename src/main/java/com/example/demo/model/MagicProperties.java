@@ -20,6 +20,12 @@ public class MagicProperties {
     @Value("${sql.update.user}")
     private String UPDATE_USER;
 
+    @Value("${sql.update.user.firstName}")
+    private String UPDATE_FIRSTNAME;
+
+    @Value("${sql.update.user.lastName}")
+    private String UPDATE_LASTNAME;
+
     @Value("${sql.delete.user}")
     private String DELETE_USER;
 }

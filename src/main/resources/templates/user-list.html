@@ -27,7 +27,7 @@
                 <div class="col-3" th:text="${user.getFirstName()}">VALUE</div>
                 <div class="col-3" th:text="${user.getLastName()}">VALUE</div>
                 <div class="col-2">
-                    <form th:action="@{user-update/{id}(id=${user.id})}" th:method="GET">
+                    <form th:action="@{/user-update/{id}(id=${user.id})}" th:method="GET">
                         <button type="submit" class="btn btn-primary">Редактировать</button>
                     </form>
                 </div>

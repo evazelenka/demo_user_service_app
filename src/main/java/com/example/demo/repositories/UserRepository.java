@@ -60,8 +60,19 @@ public class UserRepository {
     }
 
     public User updateUser(int id, User user){
-        String sql = magicProperties.getUPDATE_USER()+id;
-        jdbc.update(sql,user.getFirstName(), user.getLastName());
+        String sql;
+        if (user.getFirstName().isEmpty() && user.getLastName().isEmpty()){
+            deleteUser(id);
+        } else if (user.getFirstName().isEmpty()) {
+            sql = magicProperties.getUPDATE_LASTNAME()+id;
+            jdbc.update(sql, user.getLastName());
+        } else if (user.getLastName().isEmpty()) {
+            sql = magicProperties.getUPDATE_FIRSTNAME()+id;
+            jdbc.update(sql,user.getFirstName());
+        } else{
+            sql = magicProperties.getUPDATE_USER()+id;
+            jdbc.update(sql,user.getFirstName(), user.getLastName());
+        }
         return user;
     }
 
