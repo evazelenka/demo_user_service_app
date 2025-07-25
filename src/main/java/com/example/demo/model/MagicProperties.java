@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MagicProperties {
 
-    @Value("${sql.select.all:SELECT * FROM userTable}")
+    @Value("${data.sql.select.all}")
     private String SELECT_ALL;
 
     @Value("${sql.insert.into}")

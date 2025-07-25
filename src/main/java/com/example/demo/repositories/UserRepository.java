@@ -2,6 +2,7 @@ package com.example.demo.repositories;
 
 import com.example.demo.model.MagicProperties;
 import com.example.demo.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -15,17 +16,15 @@ public class UserRepository {
 
     private final List<User> users = new ArrayList<>();
 
-    private MagicProperties magicProperties = new MagicProperties();
+    @Autowired
+    private MagicProperties magicProperties;
 
     public UserRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM userTable";
-        System.out.println("---------------------------------------------");
-        System.out.println(sql);
-        System.out.println("---------------------------------------------");
+        String sql = magicProperties.getSELECT_ALL();
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
             rowObject.setId(r.getInt("id"));
@@ -39,7 +38,7 @@ public class UserRepository {
 
     public User save(User user) {
         String sql = magicProperties.getINSERT_INTO();
-        jdbc.update(sql,user.getFirstName(), user.getLastName());
+        jdbc.update(sql, user.getFirstName(), user.getLastName());
         return user;
     }
 

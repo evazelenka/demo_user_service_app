@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -20,34 +19,44 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping("/all")
-//    public List<User> findAll(){
-//        return userService.findAll();
-//    }
-
     @GetMapping("/all")
     public String findAll(Model model){
         model.addAttribute("users", userService.findAll());
         return "user-list.html";
     }
 
-    @PostMapping()
-    public User createUser(@RequestBody User user){
-        return userService.saveUser(user);
+    @GetMapping("/user-create")
+    public String createUser(){
+        return "user-create.html";
+    }
+
+    @PostMapping("/user-create")
+    public String createUser(User user, Model model){
+        userService.saveUser(user);
+        model.addAttribute("user", user);
+        return findAll(model);
+    }
+
+    @PostMapping("/user-update/{id}")
+    public String updateUser(@PathVariable int id, User user, Model model){
+        userService.updateUser(id, user);
+        return findAll(model);
+    }
+
+    @GetMapping("/user-update/{id}")
+    public String updateUser(@PathVariable int id, Model model){
+        model.addAttribute("user", userService.getUser(id));
+        return "user-update.html";
+    }
+
+    @GetMapping("/user-delete/{id}")
+    public String deleteTask(@PathVariable int id, Model model){
+        userService.deleteUser(id);
+        return findAll(model);
     }
 
     @GetMapping("/get/{id}")
-    public User getTaskById(@PathVariable int id){
+    public User getUserById(@PathVariable int id){
         return userService.getUser(id);
-    }
-
-    @GetMapping("/update/{id}")
-    public User updateTask(@PathVariable int id, @RequestBody User user){
-        return userService.updateUser(id, user);
-    }
-
-    @GetMapping("/delete/{id}")
-    public void deleteTask(@PathVariable int id){
-        userService.deleteUser(id);
     }
 }
