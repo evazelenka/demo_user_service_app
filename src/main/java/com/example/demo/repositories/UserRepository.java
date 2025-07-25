@@ -7,14 +7,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserRepository {
     private final JdbcTemplate jdbc;
-
-    private final List<User> users = new ArrayList<>();
 
     @Autowired
     private MagicProperties magicProperties;
