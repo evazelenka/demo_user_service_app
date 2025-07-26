@@ -21,7 +21,7 @@ public class UserRepository {
     }
 
     public List<User> findAll() {
-        String sql = magicProperties.getSELECT_ALL();
+        String sql = magicProperties.getFindAll();
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
             rowObject.setId(r.getInt("id"));
@@ -34,13 +34,13 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        String sql = magicProperties.getINSERT_INTO();
+        String sql = magicProperties.getSave();
         jdbc.update(sql, user.getFirstName(), user.getLastName());
         return user;
     }
 
     public User getUserById(int id){
-        String sql = magicProperties.getSELECT_USER()+id;
+        String sql = magicProperties.getGetById()+id;
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
             rowObject.setId(r.getInt("id"));
@@ -61,20 +61,20 @@ public class UserRepository {
         if (user.getFirstName().isEmpty() && user.getLastName().isEmpty()){
             deleteUser(id);
         } else if (user.getFirstName().isEmpty()) {
-            sql = magicProperties.getUPDATE_LASTNAME()+id;
+            sql = magicProperties.getUpdateLastName()+id;
             jdbc.update(sql, user.getLastName());
         } else if (user.getLastName().isEmpty()) {
-            sql = magicProperties.getUPDATE_FIRSTNAME()+id;
+            sql = magicProperties.getUpdateFirstName()+id;
             jdbc.update(sql,user.getFirstName());
         } else{
-            sql = magicProperties.getUPDATE_USER()+id;
+            sql = magicProperties.getUpdateUser()+id;
             jdbc.update(sql,user.getFirstName(), user.getLastName());
         }
         return user;
     }
 
     public void deleteUser(int id){
-        String sql = magicProperties.getDELETE_USER()+id;
+        String sql = magicProperties.getDelete()+id;
         jdbc.update(sql);
     }
 }

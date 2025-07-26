@@ -1,31 +1,25 @@
 package com.example.demo.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Data
-@Component
+@Configuration
+@ConfigurationProperties(prefix = "magic-sql")
+@Getter
+@Setter
+@ToString
 public class MagicProperties {
-
-    @Value("${data.sql.select.all}")
-    private String SELECT_ALL;
-
-    @Value("${sql.insert.into}")
-    private String INSERT_INTO;
-
-    @Value("${sql.select.user.by.id}")
-    private String SELECT_USER;
-
-    @Value("${sql.update.user}")
-    private String UPDATE_USER;
-
-    @Value("${sql.update.user.firstName}")
-    private String UPDATE_FIRSTNAME;
-
-    @Value("${sql.update.user.lastName}")
-    private String UPDATE_LASTNAME;
-
-    @Value("${sql.delete.user}")
-    private String DELETE_USER;
+    private String findAll;
+    private String save;
+    private String getById;
+    private String updateUser;
+    private String updateFirstName;
+    private String updateLastName;
+    private String delete;
 }
